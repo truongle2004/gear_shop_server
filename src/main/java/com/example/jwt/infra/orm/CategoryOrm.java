@@ -23,11 +23,13 @@ public class CategoryOrm {
     private String name;
 
     @CreationTimestamp
-    @Column(updatable = false) // prevent updated to createAt
+    @Column(updatable = false, name = "created_at") // prevent updated to createAt
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 }

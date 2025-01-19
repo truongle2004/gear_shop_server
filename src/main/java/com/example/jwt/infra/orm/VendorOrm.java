@@ -22,11 +22,13 @@ public class VendorOrm {
     private String name;
 
     @CreationTimestamp
-    @Column(updatable = false) // prevent update to createAt
+    @Column(updatable = false, name = "created_at") // prevent update to createAt
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 }
