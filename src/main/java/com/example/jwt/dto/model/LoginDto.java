@@ -1,13 +1,12 @@
-package com.example.jwt.dtos;
+package com.example.jwt.dto.model;
 
 import lombok.Getter;
 
 /**
- * RegisterDto
+ * LoginDto
  */
 @Getter()
-public class RegisterDto {
+public class LoginDto {
     private String username;
-    private String email;
     private String password;
 }

@@ -1,4 +1,4 @@
-package com.example.jwt.infra.orm;
+package com.example.jwt.entities;
 
 import java.time.LocalDateTime;
 
@@ -12,14 +12,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "categories")
-public class CategoryOrm {
+public class CategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(columnDefinition = "TINYINT UNSIGNED")
+    private byte id;
+
+    @Column(nullable = false)
     private String name;
 
     @CreationTimestamp

@@ -1,4 +1,4 @@
-package com.example.jwt.infra.orm;
+package com.example.jwt.entities;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -16,19 +16,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * UserEntity
- */
-
-@Setter
 @Getter
-@AllArgsConstructor
+@Setter
 @Entity(name = "users")
-public class UserOrm {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.UUID)
     private UUID id;
@@ -55,6 +49,5 @@ public class UserOrm {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Set<RoleOrm> roles;
-
+    private Set<RoleEntity> roles;
 }
