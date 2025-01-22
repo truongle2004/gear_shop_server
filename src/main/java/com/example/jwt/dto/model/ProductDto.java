@@ -19,6 +19,7 @@ public class ProductDto {
     @NotEmpty(message = "Description is required")
     private String description;
     private String tags;
+    private String category;
     private List<ImagesEntity> images;
     private String vendor;
     private BigDecimal price;

@@ -32,12 +32,14 @@ public class GetByCategoryUseCaseImpl implements GetByCategoryUseCase {
     private final Logger logger = LoggerFactory.getLogger(GetByCategoryUseCaseImpl.class);
 
     @Override
-    public ObjectResponse<ProductDto> execute(int pageNumber, int pageSize, String sortBy) {
+    public ObjectResponse<ProductDto> execute(int pageNumber, int pageSize, String sortBy, String slug) {
         try {
             // TODO: remove hardcode sort by
             Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).ascending());
 
-            Page<ProductEntity> pagedResult = this.productRepository.findAll(paging);
+            // Page<ProductEntity> pagedResult = this.productRepository.findAll(paging);
+
+            Page<ProductEntity> pagedResult = this.productRepository.findByCategory(slug, paging);
 
             List<ProductDto> content = pagedResult.getContent().stream()
                     .map(product -> {
@@ -45,6 +47,8 @@ public class GetByCategoryUseCaseImpl implements GetByCategoryUseCase {
                         ProductDto productDto = new ProductDto();
 
                         productDto.setId(product.getId());
+
+                        productDto.setCategory(product.getCategoryEntity().getName());
 
                         productDto.setTags(product.getTags());
 

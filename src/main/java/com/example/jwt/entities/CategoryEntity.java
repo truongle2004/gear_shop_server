@@ -27,6 +27,9 @@ public class CategoryEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false, unique = true)
+    private String slug;
+
     @CreationTimestamp
     @Column(updatable = false, name = "created_at") // prevent updated to createAt
     private LocalDateTime createdAt;
