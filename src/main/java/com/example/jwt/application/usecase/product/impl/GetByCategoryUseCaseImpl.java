@@ -12,7 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.jwt.application.usecase.product.GetByCategoryUseCase;
-import com.example.jwt.dto.mapper.ProductMapper;
 import com.example.jwt.dto.model.ProductDto;
 import com.example.jwt.dto.response.ObjectResponse;
 import com.example.jwt.entities.ImagesEntity;
@@ -26,8 +25,6 @@ import lombok.AllArgsConstructor;
 public class GetByCategoryUseCaseImpl implements GetByCategoryUseCase {
 
     private final ProductRepository productRepository;
-
-    private final ProductMapper productMapper;
 
     private final Logger logger = LoggerFactory.getLogger(GetByCategoryUseCaseImpl.class);
 

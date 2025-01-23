@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.example.jwt.entities.ProductEntity;
 
 @Repository
-public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
+public interface ProductRepository extends JpaRepository<ProductEntity, Short> {
     @Query(value = "select * from products where category_id = " +
             "(select id from categories where slug = :slug)", nativeQuery = true)
     Page<ProductEntity> findByCategory(@Param("slug") String slug, Pageable pageable);
