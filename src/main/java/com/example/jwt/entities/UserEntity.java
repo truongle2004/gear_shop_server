@@ -24,8 +24,8 @@ import lombok.Setter;
 @Entity(name = "users")
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    private int id;
 
     @Column(unique = true)
     private String username;

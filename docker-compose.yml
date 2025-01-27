@@ -1,0 +1,9 @@
+services:
+  app:
+    container_name: tech_shop_server
+    build: .
+    ports:
+      - ${PORT}:${PORT}
+    env_file:
+      - .env
+      - .env.dev

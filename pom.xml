@@ -42,14 +42,14 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
-    <!-- <dependency>
+    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-oauth2-authorization-server</artifactId>
-    </dependency> -->
-    <!-- <dependency>
+    </dependency>
+    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
-    </dependency> -->
+    </dependency> 
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
@@ -85,22 +85,30 @@
       <artifactId>lombok</artifactId>
       <optional>true</optional>
     </dependency>
-    <!-- <dependency>
-      <groupId>org.mapstruct</groupId>
-      <artifactId>mapstruct</artifactId>
-      <version>1.5.5.Final</version>
-    </dependency>
-    <dependency>
-        <groupId>org.mapstruct</groupId>
-        <artifactId>mapstruct-processor</artifactId>
-        <version>1.5.5.Final</version>
-    </dependency> -->
 
     <!-- <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-test</artifactId>
-      <scope>test</scope>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-webflux</artifactId>
     </dependency> -->
+
+
+    <dependency>
+        <groupId>io.projectreactor</groupId>
+        <artifactId>reactor-core</artifactId>
+        <version>3.7.2</version>
+    </dependency>
+
+    <dependency>
+        <groupId>io.github.cdimascio</groupId>
+        <artifactId>java-dotenv</artifactId>
+        <version>5.2.2</version>
+    </dependency>
+
+  <dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-test</artifactId>
+    <scope>test</scope>
+  </dependency>
   <dependency>
       <groupId>jakarta.validation</groupId>
       <artifactId>jakarta.validation-api</artifactId>
