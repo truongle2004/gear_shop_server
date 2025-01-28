@@ -1,9 +1,57 @@
 services:
-  app:
-    container_name: tech_shop_server
-    build: .
+  # mysqldb:
+  #   container_name: mysql_container
+  #   image: mysql:8.0
+  #   environment:
+  #     # - MYSQL_DATABASE=${MYSQL_DATABASE}
+  #     - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+  #   ports: ["3307:3306"]
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
+  #   networks:
+  #     - app-network
+  #   env_file:
+  #     - .env
+  #
+  #   healthcheck:
+  #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+  #     interval: 30s
+  #     retries: 5
+  #
+  # app:
+  #   container_name: tech_shop_server_container
+  #   build:
+  #     context: .
+  #     dockerfile: ./Dockerfile
+  #   environment:
+  #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+  #     - MYSQL_USERNAME=${MYSQL_USERNAME}
+  #     - MYSQL_URL=${MYSQL_URL}
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "${SERVER_PORT}:8080"
+  #   depends_on:
+  #     - mysqldb
+  #   networks:
+  #     - app-network
+  #
+  keycloak:
+    container_name: keycloak_container
+    image: quay.io/keycloak/keycloak:latest
     ports:
-      - ${PORT}:${PORT}
+      - ${KEYCLOAK_PORT}:8080
     env_file:
       - .env
-      - .env.dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command:
+      - start-dev
+
+volumes:
+  mysql_data:
+
+networks:
+  app-network:
+    driver: bridge
