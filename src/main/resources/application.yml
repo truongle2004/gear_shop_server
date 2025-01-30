@@ -28,7 +28,5 @@ spring:
     # username: ${MYSQL_USER}
     # password: ${MYSQL_PASSWORD}
 
-
-
 server:
   port: 8081

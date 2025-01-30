@@ -22,8 +22,8 @@ import com.example.jwt.utils.AppConstants;
 import lombok.AllArgsConstructor;
 
 // TODO create .env file
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/v1/products")
 @AllArgsConstructor
 public class ProductController {
@@ -47,14 +47,10 @@ public class ProductController {
         return new ResponseEntity<>(this.getAllCategoryUseCase.execute(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable short id) {
         System.out.println("id: " + id);
         return new ResponseEntity<>(this.getProductByIdUseCase.execute(id), HttpStatus.OK);
-    }
-
-    @GetMapping("/carts")
-    public ResponseEntity<String> getUserCart() {
-        return new ResponseEntity<>("cart", HttpStatus.OK);
     }
 
 }
