@@ -30,7 +30,7 @@ public class ProductEntity {
     @Column(columnDefinition = "SMALLINT UNSIGNED")
     private short id;
 
-    private String handle;
+    private String slug;
     @Column(columnDefinition = "VARCHAR(255)")
     private String title;
 

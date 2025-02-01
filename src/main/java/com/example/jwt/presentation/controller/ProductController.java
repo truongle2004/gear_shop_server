@@ -21,9 +21,8 @@ import com.example.jwt.utils.AppConstants;
 
 import lombok.AllArgsConstructor;
 
-// TODO create .env file
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "${cors.allowed-origins}")
 @RequestMapping("/api/v1/products")
 @AllArgsConstructor
 public class ProductController {
@@ -52,5 +51,4 @@ public class ProductController {
         System.out.println("id: " + id);
         return new ResponseEntity<>(this.getProductByIdUseCase.execute(id), HttpStatus.OK);
     }
-
 }

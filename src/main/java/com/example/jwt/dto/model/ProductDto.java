@@ -13,7 +13,7 @@ import lombok.Data;
 public class ProductDto {
     private int id;
     private boolean available;
-    private String handle;
+    private String slug;
     @NotEmpty(message = "Title is required")
     private String title;
     @NotEmpty(message = "Description is required")

@@ -5,14 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-// TODO: setup config for .env
 @SpringBootApplication(scanBasePackages = "com.example.jwt")
 public class TechShopApplication {
-
-	// @Bean
-	// public Dotenv dotenv() {
-	// return Dotenv.load();
-	// }
 
 	@Bean
 	public ModelMapper modelMapper() {

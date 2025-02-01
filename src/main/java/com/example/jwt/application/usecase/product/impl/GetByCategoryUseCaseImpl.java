@@ -51,7 +51,7 @@ public class GetByCategoryUseCaseImpl implements GetByCategoryUseCase {
 
                         productDto.setTitle(product.getTitle());
 
-                        productDto.setHandle(product.getHandle());
+                        productDto.setSlug(product.getSlug());
 
                         productDto.setVendor(product.getVendorEntity().getName());
 
