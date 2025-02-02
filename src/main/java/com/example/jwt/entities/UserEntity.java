@@ -2,7 +2,6 @@ package com.example.jwt.entities;
 
 import java.time.LocalDateTime;
 import java.util.Set;
-import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

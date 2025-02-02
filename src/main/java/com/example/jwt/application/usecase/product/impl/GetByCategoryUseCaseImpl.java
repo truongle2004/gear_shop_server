@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.jwt.application.usecase.product.GetByCategoryUseCase;
+import com.example.jwt.dto.mapper.ImageMapper;
 import com.example.jwt.dto.model.ProductDto;
 import com.example.jwt.dto.response.ObjectResponse;
 import com.example.jwt.entities.ImagesEntity;
@@ -25,6 +26,7 @@ import lombok.AllArgsConstructor;
 public class GetByCategoryUseCaseImpl implements GetByCategoryUseCase {
 
     private final ProductRepository productRepository;
+    private final ImageMapper imageMapper;
 
     private final Logger logger = LoggerFactory.getLogger(GetByCategoryUseCaseImpl.class);
 
@@ -63,7 +65,7 @@ public class GetByCategoryUseCaseImpl implements GetByCategoryUseCase {
                         List<ImagesEntity> images = product.getImages().stream().filter(
                                 image -> image.getPosition() == 1).collect(Collectors.toList());
 
-                        productDto.setImages(images);
+                        productDto.setImages(images.stream().map(this.imageMapper::mapToDto).toList());
 
                         return productDto;
                     })

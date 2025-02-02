@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.example.jwt.entities.ImagesEntity;
-
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
@@ -20,7 +18,7 @@ public class ProductDto {
     private String description;
     private String tags;
     private String category;
-    private List<ImagesEntity> images;
+    private List<ImageDto> images;
     private String vendor;
     private BigDecimal price;
 
