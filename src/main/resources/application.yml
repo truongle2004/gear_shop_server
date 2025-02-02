@@ -33,3 +33,10 @@ server:
 
 cors:
   allowed-origins: http://localhost:5173
+  
+hibernate:
+  search:
+    default:
+      directory_provider: filesystem
+      indexBase: ./src/main/resources/static
+

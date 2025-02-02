@@ -2,6 +2,7 @@ package com.example.jwt.entities;
 
 import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.GenericField;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -28,11 +29,14 @@ public class ImagesEntity {
     private int id;
 
     @Column(unique = true)
+    @GenericField
     private String src;
 
+    @GenericField
     private String alt;
 
     @Column(columnDefinition = "TINYINT UNSIGNED")
+    @GenericField
     private byte position;
 
     @CreationTimestamp

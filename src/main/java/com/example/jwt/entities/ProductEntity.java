@@ -6,6 +6,10 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.GenericField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -22,6 +26,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Indexed
 @NoArgsConstructor
 @Entity(name = "products")
 public class ProductEntity {
@@ -31,7 +36,9 @@ public class ProductEntity {
     private short id;
 
     private String slug;
+
     @Column(columnDefinition = "VARCHAR(255)")
+    @FullTextField
     private String title;
 
     @Column(columnDefinition = "LONGTEXT")
@@ -41,6 +48,7 @@ public class ProductEntity {
     private String tags;
 
     @Column(columnDefinition = "DECIMAL(10,2)")
+    @GenericField
     private BigDecimal price;
 
     @CreationTimestamp
@@ -56,6 +64,7 @@ public class ProductEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @IndexedEmbedded
     private CategoryEntity categoryEntity;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -63,9 +72,10 @@ public class ProductEntity {
     private VendorEntity vendorEntity;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @IndexedEmbedded
     private List<ImagesEntity> images;
 
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @IndexedEmbedded
     private InventoryEntity inventory;
-
 }

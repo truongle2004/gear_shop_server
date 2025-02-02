@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -46,6 +47,23 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.hibernate.search</groupId>
+      <artifactId>hibernate-search-bom</artifactId>
+      <version>7.2.2.Final</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate.search</groupId>
+      <artifactId>hibernate-search-mapper-orm</artifactId>
+      <version>7.2.2.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate.search</groupId>
+      <artifactId>hibernate-search-backend-lucene</artifactId>
+      <version>7.2.2.Final</version>
+    </dependency>
     <!-- <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-oauth2-authorization-server</artifactId>
@@ -53,7 +71,7 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
-    </dependency> 
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
@@ -76,9 +94,9 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-        <groupId>org.modelmapper</groupId>
-        <artifactId>modelmapper</artifactId>
-        <version>3.2.2</version>
+      <groupId>org.modelmapper</groupId>
+      <artifactId>modelmapper</artifactId>
+      <version>3.2.2</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -91,21 +109,21 @@
     </dependency>
 
     <dependency>
-        <groupId>io.github.cdimascio</groupId>
-        <artifactId>java-dotenv</artifactId>
-        <version>5.2.2</version>
+      <groupId>io.github.cdimascio</groupId>
+      <artifactId>java-dotenv</artifactId>
+      <version>5.2.2</version>
     </dependency>
 
-  <dependency>
-    <groupId>org.springframework.security</groupId>
-    <artifactId>spring-security-test</artifactId>
-    <scope>test</scope>
-  </dependency>
-  <dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>jakarta.validation</groupId>
       <artifactId>jakarta.validation-api</artifactId>
       <version>3.1.0</version>
-  </dependency>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
