@@ -10,10 +10,10 @@ import com.example.jwt.dto.mapper.ProductMapper;
 import com.example.jwt.dto.model.ProductDto;
 import com.example.jwt.infra.repositories.ProductRepository;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class GetProductByIdUseCaseImpl implements GetProductByIdUseCase {
     private final ProductMapper productMapper;
 

@@ -12,10 +12,10 @@ import com.example.jwt.dto.model.CategoryDto;
 import com.example.jwt.entities.CategoryEntity;
 import com.example.jwt.infra.repositories.CategoryRepository;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class GetAllCategoryUseCaseImpl implements GetAllCategoryUseCase {
 
     private final CategoryRepository categoryRepository;
@@ -35,7 +35,7 @@ public class GetAllCategoryUseCaseImpl implements GetAllCategoryUseCase {
                             .build())
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            logger.error("Error occurred while retrieving all categories: {}", e.getMessage(), e);
+            logger.error("Error occurred while retrieving all categories: {}", e);
             throw new RuntimeException("Failed to fetch categories. Please try again later.", e);
         }
     }

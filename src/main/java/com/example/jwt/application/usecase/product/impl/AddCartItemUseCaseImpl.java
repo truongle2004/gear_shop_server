@@ -3,6 +3,8 @@ package com.example.jwt.application.usecase.product.impl;
 import java.util.Optional;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.example.jwt.application.exceptions.NotFoundException;
@@ -21,32 +23,44 @@ public class AddCartItemUseCaseImpl implements AddCartItemUseCase {
 
     private final CartRepository cartRepository;
     private final ProductRepository productRepository;
+    private final Logger logger = LoggerFactory.getLogger(AddCartItemUseCaseImpl.class);
 
     @Override
-    public boolean execute(int userId, short quantity, int productId) {
-        ProductEntity product = this.productRepository.findById((short) productId)
-                .orElseThrow(() -> new NotFoundException("Product not found"));
+    public void execute(int userId, short quantity, int productId) {
+        try {
 
-        Optional<CartEntity> cart = this.cartRepository.findByUserId(userId);
-        if (cart.isPresent()) {
-            CartEntity cartEntity = cart.get();
-            Set<CartItemEntity> cartItems = cartEntity.getCartItems();
-            for (CartItemEntity cartItem : cartItems) {
-                if (cartItem.getProduct().getId() == productId) {
-                    cartItem.setQuantity((short) (cartItem.getQuantity() + quantity));
-                    this.cartRepository.save(cartEntity);
-                    return true;
+            ProductEntity product = this.productRepository.findById((short) productId)
+                    .orElseThrow(() -> new NotFoundException("Product not found"));
+
+            Optional<CartEntity> cart = this.cartRepository.findByUserId(userId);
+            if (cart.isPresent()) {
+                CartEntity cartEntity = cart.get();
+                Set<CartItemEntity> cartItems = cartEntity.getCartItems();
+                for (CartItemEntity cartItem : cartItems) {
+                    if (cartItem.getProduct().getId() == productId) {
+                        cartItem.setQuantity((short) quantity);
+                        this.cartRepository.save(cartEntity);
+                    }
                 }
+                CartItemEntity cartItem = new CartItemEntity();
+                cartItem.setProduct(product);
+                cartItem.setQuantity((short) 1);
+                cartEntity.getCartItems().add(cartItem);
+                this.cartRepository.save(cartEntity);
+            } else {
+                CartEntity newCart = new CartEntity();
+                newCart.setUserId(userId);
+                CartItemEntity cartItem = new CartItemEntity();
+                cartItem.setProduct(product);
+                cartItem.setQuantity((short) quantity);
+                newCart.getCartItems().add(cartItem);
+                this.cartRepository.save(newCart);
             }
-            CartItemEntity cartItem = new CartItemEntity();
-            cartItem.setProduct(product);
-            cartItem.setQuantity((short) 1);
-            cartEntity.getCartItems().add(cartItem);
-            this.cartRepository.save(cartEntity);
-            return true;
+        } catch (Exception e) {
+            logger.error("Error occurred while adding cart item: {}", e);
+            throw new RuntimeException("Failed to add cart item. Please try again later.", e);
         }
 
-        return false;
     }
 
 }

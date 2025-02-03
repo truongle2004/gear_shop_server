@@ -32,10 +32,11 @@ public class CartController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Map<String, Boolean>> addProductToCart(@RequestParam(value = "userId") int userId,
+    public ResponseEntity<String> addProductToCart(
+            @RequestParam(value = "userId") int userId,
             @RequestParam(value = "quantity") short quantity,
             @RequestParam(value = "productId") int productId) {
-        boolean isAdded = this.addCartItemUseCase.execute(userId, quantity, productId);
-        return new ResponseEntity<>(Map.of("success", isAdded), HttpStatus.CREATED);
+        this.addCartItemUseCase.execute(userId, quantity, productId);
+        return new ResponseEntity<>("Product added to cart", HttpStatus.CREATED);
     }
 }
