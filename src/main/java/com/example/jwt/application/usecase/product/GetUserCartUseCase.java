@@ -1,5 +1,7 @@
 package com.example.jwt.application.usecase.product;
 
-public interface GetUserCartUseCase {
+import com.example.jwt.dto.model.CartDto;
 
+public interface GetUserCartUseCase {
+    CartDto execute(int userId);
 }

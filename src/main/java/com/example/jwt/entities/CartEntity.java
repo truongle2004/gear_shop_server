@@ -28,9 +28,6 @@ public class CartEntity {
     @Column(nullable = false)
     private int userId;
 
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal totalPrice = BigDecimal.ZERO;
-
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CartItemEntity> cartItems;
 
@@ -49,9 +46,5 @@ public class CartEntity {
         }
 
         return total.setScale(2, BigDecimal.ROUND_HALF_UP); // Ensure proper rounding
-    }
-
-    public void updateTotalPrice() {
-        this.totalPrice = calculateTotalPrice();
     }
 }
