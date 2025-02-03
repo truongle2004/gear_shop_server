@@ -1,12 +1,10 @@
 package com.example.jwt.dto.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder
+@Data
 public class CategoryDto {
     private byte id;
     private String name;

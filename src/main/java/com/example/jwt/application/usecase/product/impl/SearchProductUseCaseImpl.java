@@ -40,17 +40,22 @@ public class SearchProductUseCaseImpl implements SearchProductUseCase {
                 // build the query and get results
                 .fetch(AppConstants.LIMIT_SEARCH_SIZE);
 
-        return searchResult.hits().stream().map(hit -> {
-            SearchResponseDto response = new SearchResponseDto();
-            response.setId(hit.getId());
-            response.setPrice(hit.getPrice());
-            response.setTitle(hit.getTitle());
-            response.setImages(hit.getImages()
-                    .stream()
-                    .map(this.imageMapper::mapToDto)
-                    .toList());
-            return response;
-        }).toList();
+        return searchResult
+                .hits()
+                .stream()
+                .map(hit -> SearchResponseDto
+                        .builder()
+                        .id(hit.getId())
+                        .title(hit.getTitle())
+                        .price(hit.getPrice())
+                        .images(hit
+                                .getImages()
+                                .stream()
+                                .filter(image -> image.getPosition() == AppConstants.FIRST_IMAGE_POSITION)
+                                .map(this.imageMapper::mapToDto)
+                                .toList())
+                        .build())
+                .toList();
     }
 
 }

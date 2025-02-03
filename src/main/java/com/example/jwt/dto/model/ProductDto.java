@@ -5,8 +5,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data
 public class ProductDto {
     private int id;

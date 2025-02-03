@@ -27,11 +27,12 @@ public class GetAllCategoryUseCaseImpl implements GetAllCategoryUseCase {
         try {
             List<CategoryEntity> categories = categoryRepository.findAll();
             return categories.stream()
-                    .map(category -> {
-                        CategoryDto categoryDto = new CategoryDto(category.getId(), category.getName(),
-                                category.getSlug());
-                        return categoryDto;
-                    })
+                    .map(category -> CategoryDto
+                            .builder()
+                            .id(category.getId())
+                            .name(category.getName())
+                            .slug(category.getSlug())
+                            .build())
                     .collect(Collectors.toList());
         } catch (Exception e) {
             logger.error("Error occurred while retrieving all categories: {}", e.getMessage(), e);

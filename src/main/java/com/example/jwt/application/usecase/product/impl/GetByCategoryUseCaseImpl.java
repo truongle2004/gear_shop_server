@@ -15,7 +15,6 @@ import com.example.jwt.application.usecase.product.GetByCategoryUseCase;
 import com.example.jwt.dto.mapper.ImageMapper;
 import com.example.jwt.dto.model.ProductDto;
 import com.example.jwt.dto.response.ObjectResponse;
-import com.example.jwt.entities.ImagesEntity;
 import com.example.jwt.entities.ProductEntity;
 import com.example.jwt.infra.repositories.ProductRepository;
 import com.example.jwt.utils.AppConstants;
@@ -28,7 +27,6 @@ public class GetByCategoryUseCaseImpl implements GetByCategoryUseCase {
 
     private final ProductRepository productRepository;
     private final ImageMapper imageMapper;
-
     private final Logger logger = LoggerFactory.getLogger(GetByCategoryUseCaseImpl.class);
 
     @Override
@@ -38,36 +36,24 @@ public class GetByCategoryUseCaseImpl implements GetByCategoryUseCase {
 
             Page<ProductEntity> pagedResult = this.productRepository.findByCategory(slug, paging);
 
-            List<ProductDto> content = pagedResult.getContent().stream()
-                    .map(product -> {
-                        // Create dto object to customize response
-                        ProductDto productDto = new ProductDto();
-
-                        productDto.setId(product.getId());
-
-                        productDto.setCategory(product.getCategoryEntity().getName());
-
-                        productDto.setTags(product.getTags());
-
-                        productDto.setTitle(product.getTitle());
-
-                        productDto.setSlug(product.getSlug());
-
-                        productDto.setVendor(product.getVendorEntity().getName());
-
-                        productDto.setPrice(product.getPrice());
-
-                        productDto.setAvailable(product.getInventory().getQuantity() > AppConstants.LIMIT_OUT_OF_STOCK);
-
-                        // Filter images to include only those with position == 1 to show first of
-                        List<ImagesEntity> images = product.getImages().stream().filter(
-                                image -> image.getPosition() == AppConstants.FIRST_IMAGE_POSITION)
-                                .collect(Collectors.toList());
-
-                        productDto.setImages(images.stream().map(this.imageMapper::mapToDto).toList());
-
-                        return productDto;
-                    })
+            List<ProductDto> content = pagedResult
+                    .getContent()
+                    .stream()
+                    .map(product -> ProductDto.builder()
+                            .id(product.getId())
+                            .category(product.getCategoryEntity().getName())
+                            .tags(product.getTags())
+                            .title(product.getTitle())
+                            .slug(product.getSlug())
+                            .vendor(product.getVendorEntity().getName())
+                            .price(product.getPrice())
+                            .available(product.getInventory().getQuantity() > AppConstants.LIMIT_OUT_OF_STOCK)
+                            .images(product
+                                    .getImages()
+                                    .stream()
+                                    .filter(image -> image.getPosition() == AppConstants.FIRST_IMAGE_POSITION)
+                                    .map(t -> this.imageMapper.mapToDto(t)).toList())
+                            .build())
                     .collect(Collectors.toList());
 
             ObjectResponse<ProductDto> objectResponse = new ObjectResponse<>();
