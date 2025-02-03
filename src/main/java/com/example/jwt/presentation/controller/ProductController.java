@@ -59,4 +59,10 @@ public class ProductController {
     public ResponseEntity<List<SearchResponseDto>> searchProduct(@RequestBody String query) {
         return new ResponseEntity<>(this.searchProductUseCase.execute(query), HttpStatus.OK);
     }
+
+    @GetMapping("/suggestions")
+    public ResponseEntity<List<String>> getProductSuggestions() {
+        return new ResponseEntity<>(List.of("laptop-gaming", "chuot", "ban-phim", "vo-may-tinh", "man-hinh"),
+                HttpStatus.OK);
+    }
 }

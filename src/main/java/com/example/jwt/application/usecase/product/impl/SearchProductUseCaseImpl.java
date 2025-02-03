@@ -10,10 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.jwt.application.usecase.product.SearchProductUseCase;
 import com.example.jwt.dto.mapper.ImageMapper;
-import com.example.jwt.dto.model.ImageDto;
 import com.example.jwt.dto.model.SearchResponseDto;
-import com.example.jwt.entities.ImagesEntity;
 import com.example.jwt.entities.ProductEntity;
+import com.example.jwt.utils.AppConstants;
 
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
@@ -26,6 +25,7 @@ public class SearchProductUseCaseImpl implements SearchProductUseCase {
 
     @Override
     public List<SearchResponseDto> execute(String query) {
+        // Get a Hibernate Search session
         SearchSession searchSession = Search.session(entityManager);
 
         // Initiate a search query on the index mapped to the
@@ -38,7 +38,7 @@ public class SearchProductUseCaseImpl implements SearchProductUseCase {
                         .matching(query)
                         .toPredicate())
                 // build the query and get results
-                .fetch(20);
+                .fetch(AppConstants.LIMIT_SEARCH_SIZE);
 
         return searchResult.hits().stream().map(hit -> {
             SearchResponseDto response = new SearchResponseDto();

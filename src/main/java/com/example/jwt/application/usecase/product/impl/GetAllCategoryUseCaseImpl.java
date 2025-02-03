@@ -35,7 +35,6 @@ public class GetAllCategoryUseCaseImpl implements GetAllCategoryUseCase {
                     .collect(Collectors.toList());
         } catch (Exception e) {
             logger.error("Error occurred while retrieving all categories: {}", e.getMessage(), e);
-            // TODO: customize exception
             throw new RuntimeException("Failed to fetch categories. Please try again later.", e);
         }
     }

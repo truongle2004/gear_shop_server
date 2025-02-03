@@ -18,11 +18,12 @@ import com.example.jwt.dto.response.ObjectResponse;
 import com.example.jwt.entities.ImagesEntity;
 import com.example.jwt.entities.ProductEntity;
 import com.example.jwt.infra.repositories.ProductRepository;
+import com.example.jwt.utils.AppConstants;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class GetByCategoryUseCaseImpl implements GetByCategoryUseCase {
 
     private final ProductRepository productRepository;
@@ -33,10 +34,7 @@ public class GetByCategoryUseCaseImpl implements GetByCategoryUseCase {
     @Override
     public ObjectResponse<ProductDto> execute(int pageNumber, int pageSize, String sortBy, String slug) {
         try {
-            // TODO: remove hardcode sort by
             Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).ascending());
-
-            // Page<ProductEntity> pagedResult = this.productRepository.findAll(paging);
 
             Page<ProductEntity> pagedResult = this.productRepository.findByCategory(slug, paging);
 
@@ -59,11 +57,12 @@ public class GetByCategoryUseCaseImpl implements GetByCategoryUseCase {
 
                         productDto.setPrice(product.getPrice());
 
-                        productDto.setAvailable(product.getInventory().getQuantity() > 0);
+                        productDto.setAvailable(product.getInventory().getQuantity() > AppConstants.LIMIT_OUT_OF_STOCK);
 
                         // Filter images to include only those with position == 1 to show first of
                         List<ImagesEntity> images = product.getImages().stream().filter(
-                                image -> image.getPosition() == 1).collect(Collectors.toList());
+                                image -> image.getPosition() == AppConstants.FIRST_IMAGE_POSITION)
+                                .collect(Collectors.toList());
 
                         productDto.setImages(images.stream().map(this.imageMapper::mapToDto).toList());
 
@@ -81,7 +80,7 @@ public class GetByCategoryUseCaseImpl implements GetByCategoryUseCase {
 
             return objectResponse;
         } catch (Exception e) {
-            this.logger.error("Error gettin products by category", e);
+            this.logger.error("Error occurred while retrieving products by category", e);
             throw new RuntimeException(e);
         }
     }
