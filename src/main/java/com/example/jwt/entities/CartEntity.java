@@ -1,6 +1,7 @@
 package com.example.jwt.entities;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -25,11 +26,11 @@ public class CartEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
-    private int userId;
+    @Column(nullable = false, unique = true)
+    private String userId;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CartItemEntity> cartItems;
+    private Set<CartItemEntity> cartItems = new HashSet<>();
 
     @SuppressWarnings("deprecation")
     public BigDecimal calculateTotalPrice() {
@@ -46,5 +47,10 @@ public class CartEntity {
         }
 
         return total.setScale(2, BigDecimal.ROUND_HALF_UP); // Ensure proper rounding
+    }
+
+    public void addCartItem(CartItemEntity cartItem) {
+        cartItems.add(cartItem);
+        this.cartItems.add(cartItem);
     }
 }

@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import com.example.jwt.dto.model.ImageDto;
+import com.example.jwt.entities.ImagesEntity;
 
 import lombok.AllArgsConstructor;
 
@@ -12,7 +13,7 @@ import lombok.AllArgsConstructor;
 public class ImageMapper {
     private ModelMapper mapper;
 
-    public ImageDto mapToDto(com.example.jwt.entities.ImagesEntity image) {
+    public ImageDto mapToDto(ImagesEntity image) {
         return mapper.map(image, ImageDto.class);
     }
 }

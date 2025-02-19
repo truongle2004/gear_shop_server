@@ -15,8 +15,10 @@ import com.example.jwt.dto.model.ImageDto;
 import com.example.jwt.dto.model.ProductDto;
 import com.example.jwt.entities.CartEntity;
 import com.example.jwt.entities.CartItemEntity;
+import com.example.jwt.entities.ImagesEntity;
 import com.example.jwt.entities.ProductEntity;
 import com.example.jwt.infra.repositories.CartRepository;
+import com.example.jwt.utils.AppConstants;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,7 +29,7 @@ public class GetUserCartUseCaseImpl implements GetUserCartUseCase {
     private final Logger logger = LoggerFactory.getLogger(GetUserCartUseCaseImpl.class);
 
     @Override
-    public CartDto execute(int userId) {
+    public CartDto execute(String userId) {
         try {
 
             CartEntity cart = this.cartRepository
@@ -40,17 +42,20 @@ public class GetUserCartUseCaseImpl implements GetUserCartUseCase {
             List<CartItemDto> cartItemDtos = cartItems.stream().map(cartItem -> {
                 ProductEntity product = cartItem.getProduct();
 
+                ImagesEntity firstImage = product.getImages()
+                        .stream()
+                        .filter(image -> image.getPosition() == AppConstants.FIRST_IMAGE_POSITION).toList().get(0);
+
+                ImageDto imageDto = ImageDto.builder()
+                        .id(firstImage.getId())
+                        .src(firstImage.getSrc())
+                        .alt(firstImage.getAlt())
+                        .build();
+
                 ProductDto productDto = ProductDto.builder()
                         .id(product.getId())
                         .slug(product.getSlug())
-                        .images(product.getImages()
-                                .stream()
-                                .map(image -> ImageDto.builder()
-                                        .id(image.getId())
-                                        .src(image.getSrc())
-                                        .alt(image.getAlt())
-                                        .build())
-                                .toList())
+                        .images(List.of(imageDto))
                         .title(product.getTitle())
                         .price(product.getPrice())
                         .build();
