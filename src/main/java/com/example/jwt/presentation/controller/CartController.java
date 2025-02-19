@@ -1,9 +1,6 @@
 package com.example.jwt.presentation.controller;
 
-import com.example.jwt.application.usecase.product.AddCartItemUseCase;
-import com.example.jwt.application.usecase.product.GetUserCartUseCase;
-import com.example.jwt.dto.model.CartDto;
-import lombok.RequiredArgsConstructor;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,10 +8,16 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.Map;
+
+import com.example.jwt.application.usecase.product.AddCartItemUseCase;
+import com.example.jwt.application.usecase.product.GetUserCartUseCase;
+import com.example.jwt.dto.model.CartDto;
+import com.example.jwt.dto.request.CartItemRequest;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @CrossOrigin(origins = "${cors.allowed-origins}")
@@ -33,11 +36,8 @@ public class CartController {
   }
 
   @PostMapping("/add")
-  public ResponseEntity<Map<String, String>> addProductToCart(
-      @RequestParam(value = "userId") String userId,
-      @RequestParam(value = "quantity") short quantity,
-      @RequestParam(value = "productId") int productId) {
-    this.addCartItemUseCase.execute(userId, quantity, productId);
+  public ResponseEntity<Map<String, String>> addProductToCart(@RequestBody CartItemRequest item) {
+    this.addCartItemUseCase.execute(item);
     return new ResponseEntity<>(
         Map.of("message", "Product added to cart successfully"),
         HttpStatus.CREATED);
