@@ -11,10 +11,9 @@ public class BaseRedisServiceImpl implements BaseRedisService {
     private RedisTemplate<String, Object> redisTemplate;
     private HashOperations<String, String, Object> hashOperations;
 
-    public BaseRedisServiceImpl(RedisTemplate<String, Object> redisTemplate,
-            HashOperations<String, String, Object> hashOperations) {
+    public BaseRedisServiceImpl(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
-        this.hashOperations = hashOperations;
+        this.hashOperations = redisTemplate.opsForHash();
     }
 
     @Override
