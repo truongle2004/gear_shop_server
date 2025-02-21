@@ -1,5 +1,6 @@
 package com.example.jwt.services.base.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -11,10 +12,10 @@ public class BaseRedisServiceImpl implements BaseRedisService {
     private RedisTemplate<String, Object> redisTemplate;
     private HashOperations<String, String, Object> hashOperations;
 
-    public BaseRedisServiceImpl(RedisTemplate<String, Object> redisTemplate,
-            HashOperations<String, String, Object> hashOperations) {
+    public BaseRedisServiceImpl(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
-        this.hashOperations = hashOperations;
+        // allows the service to efficiently use Redis hash operations without calling
+        this.hashOperations = redisTemplate.opsForHash();
     }
 
     @Override

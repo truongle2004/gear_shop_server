@@ -1,17 +1,17 @@
 package com.example.jwt.services.impl;
 
-import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
 import com.example.jwt.dto.request.CartItemRequest;
 import com.example.jwt.services.CartRedisService;
 import com.example.jwt.services.base.impl.BaseRedisServiceImpl;
 
+@Service
 public class CartRedisServiceImpl extends BaseRedisServiceImpl implements CartRedisService {
 
-    public CartRedisServiceImpl(RedisTemplate<String, Object> redisTemplate,
-            HashOperations<String, String, Object> hashOperations) {
-        super(redisTemplate, hashOperations);
+    public CartRedisServiceImpl(RedisTemplate<String, Object> redisTemplate) {
+        super(redisTemplate);
     }
 
     @Override
