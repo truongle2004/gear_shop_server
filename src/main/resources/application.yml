@@ -29,7 +29,7 @@ spring:
     # username: ${MYSQL_USER}
     # password: ${MYSQL_PASSWORD}
 
-      
+
       # keycloak:
       #   auth-server-url: http://localhost:8088/realms/tech_shop_auth_api
       #   realm: tech_shop_auth_api
@@ -46,7 +46,7 @@ server:
 
 cors:
   allowed-origins: http://localhost:5173
-  
+
 hibernate:
   search:
     default:
